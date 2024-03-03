@@ -31,7 +31,6 @@ THEN I am shown a 300x200 pixel image that matches the criteria I entered
 ```
 
 ## Assitional Requirements: 
-## Additional Requirements
 
 This Challenge combines many of the skills covered so far. In addition to the User Story and Acceptance Criteria, we’ve provided some guidelines to help you get started.
 
