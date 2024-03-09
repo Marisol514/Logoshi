@@ -15,12 +15,6 @@ async function promptUser() {
             message: 'Enter text color (keyword or hexadecimal):'
         },
         {
-            type: 'list',
-            name: 'shape',
-            message: 'Choose a shape:',
-            choices: ['circle', 'triangle', 'square', 'heart']
-        },
-        {
             type: 'input',
             name: 'shapeColor',
             message: 'Enter shape color (keyword or hexadecimal):'

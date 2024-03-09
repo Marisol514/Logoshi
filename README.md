@@ -56,7 +56,7 @@ Triangle :
 
 ## Links: 
 
-Video link:
+Video link: https://drive.google.com/file/d/1HtxKzzgIc5eF21rZj_g8Fa6ZkkAlGWNx/view
 
 GitHub Link: https://github.com/Marisol514/Logoshi
 
