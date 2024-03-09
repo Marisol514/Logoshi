@@ -50,11 +50,7 @@ async function main() {
             square.setColor(shapeColor);
             svgContent = square.render();
             break;
-        case 'heart':
-            const heart = new Heart();
-            heart.setColor(shapeColor);
-            svgContent = heart.render();
-            break;
+        
     }
 
     // Adding text with specified text color
