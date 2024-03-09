@@ -1,45 +1,72 @@
-const readline = require('readline');
+const inquirer = require('inquirer');
 const fs = require('fs');
-const { Triangle, Circle, Square } = require('./lib/shapes');
+const { Triangle, Circle, Square, Heart } = require('./lib/shapes');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-function prompt(question) {
-    return new Promise((resolve, reject) => {
-        rl.question(question, resolve);
-    });
+async function promptUser() {
+    const userInput = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'text',
+            message: 'Enter up to three characters for the logo:'
+        },
+        {
+            type: 'input',
+            name: 'textColor',
+            message: 'Enter text color (keyword or hexadecimal):'
+        },
+        {
+            type: 'list',
+            name: 'shape',
+            message: 'Choose a shape:',
+            choices: ['circle', 'triangle', 'square', 'heart']
+        },
+        {
+            type: 'input',
+            name: 'shapeColor',
+            message: 'Enter shape color (keyword or hexadecimal):'
+        }
+    ]);
+    return userInput;
 }
 
 async function main() {
-    const text = await prompt('Enter text (up to 3 characters): ');
-    const textColor = await prompt('Enter text color: ');
-    const shapeChoice = await prompt('Choose a shape (circle, triangle, square): ');
-    const shapeColor = await prompt('Enter shape color: ');
+    const userInput = await promptUser();
+    const { text, textColor, shape, shapeColor } = userInput;
 
-    let shape;
-    switch (shapeChoice.toLowerCase()) {
+    let svgContent = '';
+    switch (shape) {
         case 'circle':
-            shape = new Circle(shapeColor);
+            const circle = new Circle();
+            circle.setColor(shapeColor);
+            svgContent = circle.render();
             break;
         case 'triangle':
-            shape = new Triangle(shapeColor);
+            const triangle = new Triangle();
+            triangle.setColor(shapeColor);
+            svgContent = triangle.render();
             break;
         case 'square':
-            shape = new Square(shapeColor);
+            const square = new Square();
+            square.setColor(shapeColor);
+            svgContent = square.render();
             break;
-        default:
-            console.log('Invalid shape choice.');
-            rl.close();
-            return;
+        case 'heart':
+            const heart = new Heart();
+            heart.setColor(shapeColor);
+            svgContent = heart.render();
+            break;
     }
 
-    const svgContent = shape.render().replace('TEXT', text);
-    fs.writeFileSync('./examples/logo.svg', svgContent);
-    console.log('Generated logo.svg');
-    rl.close();
+    // Adding text with specified text color
+    svgContent += `<text x="150" y="100" fill="${textColor}" text-anchor="middle">${text}</text>`;
+
+    const logoName = `${shape}_logo.svg`;
+    fs.writeFile(`./examples/${logoName}`, `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">${svgContent}</svg>`, err => {
+        if (err) throw err;
+        console.log(`Generated examples/${logoName}`);
+    });
 }
 
 main();
+
+

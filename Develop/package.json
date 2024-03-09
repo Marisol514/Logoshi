@@ -4,7 +4,8 @@
   "description": "Node.js command-line application to generate a logo as an SVG file",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest"
   },
   "keywords": [
     "node",
